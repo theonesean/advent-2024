@@ -39,10 +39,6 @@ input.scan(mult_match) do |m|
   mult_matches << [m, $~.offset(0)[0]]
 end
 
-puts do_matches.length
-puts dont_matches.length
-puts mult_matches.length
-
 new_sum = 0
 
 mult_matches.each do |match|
@@ -53,15 +49,11 @@ mult_matches.each do |match|
   mul_idx = match[1]
   do_idx = do_matches.select { |idx| idx < mul_idx }.max
   dont_idx = dont_matches.select { |idx| idx < mul_idx }.max
-
-  puts "mul_idx: #{mul_idx}, do_idx: #{do_idx}, dont_idx: #{dont_idx}"
   
   if do_idx && (!dont_idx || do_idx > dont_idx)
     lhs = match[0][0].to_i
     rhs = match[0][1].to_i
-    puts "lhs: #{lhs}, rhs: #{rhs}"
     new_sum += lhs * rhs
-    puts "new_sum: #{new_sum}"
   end
 end
 
